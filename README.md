@@ -17,7 +17,7 @@ Coinex combines the legendary status of Bitcoin with the speed and efficiency of
 
 ## 📊 Token Information
 
-- **Total Supply**: 100,000,000 COINEX
+- **Total Supply**: 3,000,000,000 COINEX
 - **Blockchain**: Solana
 - **Token Standard**: SPL Token
 - **Contract Address**: `Hom5Y59JcZWFHi9wjxr9bp88EL36GCUUhrVwNYN1PGMd`
