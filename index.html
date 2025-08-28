@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coinex - The Bitcoin of Memecoins on Solana</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff9900;
+            --primary-glow: rgba(255, 153, 0, 0.5);
+            --secondary: #00a2ff;
+            --secondary-glow: rgba(0, 162, 255, 0.5);
+            --dark: #0a0a12;
+            --darker: #050509;
+            --light: #f4f4f6;
+            --gray: #1a1a25;
+            --bitcoin-orange: #f7931a;
+            --solana-purple: #9945ff;
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff00ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(153, 69, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(247, 147, 26, 0.05) 0%, transparent 20%),
+                linear-gradient(to bottom, var(--darker), var(--dark));
+            background-attachment: fixed;
+        }
+        
+        /* Particle background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        header {
+            background-color: rgba(10, 10, 18, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 153, 0, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.8rem;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--bitcoin-orange), var(--solana-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+        
+        .logo-icon {
+            color: var(--primary);
+            font-size: 2.2rem;
+            filter: drop-shadow(0 0 5px var(--primary-glow));
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 1.1rem;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--bitcoin-orange), var(--solana-purple));
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .cta-button {
+            background: linear-gradient(90deg, var(--bitcoin-orange), var(--solana-purple));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            box-shadow: 0 0 15px rgba(153, 69, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(153, 69, 255, 0.6);
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .hero {
+            text-align: center;
+            padding-top: 10rem;
+            padding-bottom: 6rem;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--bitcoin-orange), var(--solana-purple), var(--neon-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.2;
+            text-shadow: 0 0 10px rgba(153, 69, 255, 0.5);
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(153, 69, 255, 0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(153, 69, 255, 0.8), 0 0 30px rgba(153, 69, 255, 0.6);
+            }
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            color: #ccc;
+            font-weight: 500;
+        }
+        
+        .coin-image-container {
+            width: 300px;
+            height: 300px;
+            margin: 3rem auto;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--bitcoin-orange), var(--solana-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 50px rgba(153, 69, 255, 0.5);
+            position: relative;
+            animation: pulse 3s infinite alternate;
+            overflow: hidden;
+        }
+        
+        .coin-image-container::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: conic-gradient(transparent, transparent, transparent, var(--primary));
+            animation: rotate 4s linear infinite;
+        }
+        
+        .coin-image-container::after {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            background: var(--dark);
+            border-radius: 50%;
+        }
+        
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .coin-image {
+            position: relative;
+            z-index: 10;
+            width: 290px;
+            height: 290px;
+            border-radius: 50%;
+            background: url('https://image2url.com/images/1756418506542-cdf72dc1-edb0-4f64-9e6a-3bcb5018b76d.jpg') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: white;
+        }
+        
+        .coin-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            background: linear-gradient(145deg, var(--gray), var(--dark));
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 220px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            z-index: -1;
+            background: linear-gradient(45deg, var(--bitcoin-orange), var(--solana-purple), var(--neon-blue), var(--solana-purple));
+            background-size: 400%;
+            border-radius: 16px;
+            animation: glowing 3s ease infinite;
+        }
+        
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(145deg, var(--gray), var(--dark));
+            border-radius: 15px;
+            z-index: -1;
+        }
+        
+        @keyframes glowing {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+        
+        .stat-card h3 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .about {
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+            margin-top: 5rem;
+        }
+        
+        .about-content {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(90deg, var(--bitcoin-orange), var(--solana-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+        
+        .feature-card {
+            background: linear-gradient(145deg, var(--gray), var(--dark));
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--bitcoin-orange), var(--solana-purple));
+            transition: width 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-card:hover::before {
+            width: 100%;
+            opacity: 0.1;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px var(--secondary-glow);
+        }
+        
+        .how-to-buy {
+            background: linear-gradient(145deg, var(--gray), var(--dark));
+            padding: 4rem;
+            border-radius: 20px;
+            margin-top: 5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .how-to-buy::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right, rgba(255, 153, 0, 0.1), rgba(153, 69, 255, 0.1));
+            transform: rotate(30deg);
+            z-index: -1;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(145deg, var(--bitcoin-orange), var(--solana-purple));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-weight: bold;
+            font-size: 1.5rem;
+            box-shadow: 0 0 15px rgba(153, 69, 255, 0.5);
+        }
+        
+        .roadmap {
+            margin-top: 6rem;
+            position: relative;
+        }
+        
+        .roadmap::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(10, 10, 18, 0.5), rgba(10, 10, 18, 0.8));
+            z-index: -1;
+        }
+        
+        .roadmap-items {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin-top: 4rem;
+            position: relative;
+        }
+        
+        .roadmap-items::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--bitcoin-orange), var(--solana-purple));
+            border-radius: 2px;
+        }
+        
+        .roadmap-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            margin-left: 4rem;
+            position: relative;
+        }
+        
+        .roadmap-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(145deg, var(--bitcoin-orange), var(--solana-purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: -65px;
+            top: 0;
+            box-shadow: 0 0 15px rgba(153, 69, 255, 0.5);
+        }
+        
+        .roadmap-content {
+            background: linear-gradient(145deg, var(--gray), var(--dark));
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            flex: 1;
+            transition: transform 0.3s;
+        }
+        
+        .roadmap-content:hover {
+            transform: translateX(10px);
+        }
+        
+        footer {
+            background: linear-gradient(to bottom, var(--dark), var(--darker));
+            padding: 5rem 2rem 3rem;
+            text-align: center;
+            margin-top: 8rem;
+            position: relative;
+            border-top: 1px solid rgba(255, 153, 0, 0.2);
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(145deg, var(--gray), var(--dark));
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-5px);
+            color: var(--primary);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .disclaimer {
+            font-size: 0.9rem;
+            color: #888;
+            max-width: 800px;
+            margin: 3rem auto 0;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .project-info {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem auto;
+            max-width: 800px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .project-info p {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .about {
+                flex-direction: column;
+                gap: 3rem;
+            }
+            
+            .steps {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .coin-image-container {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .coin-image {
+                width: 240px;
+                height: 240px;
+            }
+            
+            h2 {
+                font-size: 2.5rem;
+            }
+            
+            .feature-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .how-to-buy {
+                padding: 2.5rem;
+            }
+            
+            .roadmap-item {
+                margin-left: 2rem;
+            }
+            
+            .roadmap-icon {
+                left: -45px;
+            }
+        }
+        
+        /* Animation for elements */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    
+    <header>
+        <nav>
+            <div class="logo">
+                <span class="logo-icon"><i class="fas fa-coins"></i></span>
+                <span>COINEX</span>
+            </div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#features">Features</a>
+                <a href="#how-to-buy">How to Buy</a>
+                <a href="#roadmap">Roadmap</a>
+            </div>
+            <button class="cta-button" onclick="window.open('https://phantom.com/tokens/solana/Hom5Y59JcZWFHi9wjxr9bp88EL36GCUUhrVwNYN1PGMd?referralId=98arwhjkeqn', '_blank')">Buy Coinex</button>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>The Bitcoin of Memecoins on Solana</h1>
+            <p>Coinex combines the legendary status of Bitcoin with the speed and efficiency of Solana. It's not just a memecoin - it's a movement.</p>
+            <button class="cta-button" onclick="window.open('https://phantom.com/tokens/solana/Hom5Y59JcZWFHi9wjxr9bp88EL36GCUUhrVwNYN1PGMd?referralId=98arwhjkeqn', '_blank')">Get Coinex Now</button>
+            
+            <div class="coin-image-container">
+                <div class="coin-image"></div>
+            </div>
+            
+            <div class="coin-stats">
+                <div class="stat-card fade-in">
+                    <h3>3B</h3>
+                    <p>Total Supply</p>
+                </div>
+                <div class="stat-card fade-in">
+                    <h3>$0.010</h3>
+                    <p>Current Price</p>
+                </div>
+                <div class="stat-card fade-in">
+                    <h3>50K+</h3>
+                    <p>Holders</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="about-content">
+            <h2>What is Coinex?</h2>
+            <p>Coinex is a revolutionary memecoin built on the Solana blockchain, drawing inspiration from the original cryptocurrency - Bitcoin. While Bitcoin paved the way, Coinex takes the concept to the next level with lightning-fast transactions and minimal fees.</p>
+            <p>Our mission is to combine the stability and recognition of Bitcoin with the fun and community-driven aspect of memecoins, creating a unique digital asset that appeals to both serious investors and crypto enthusiasts.</p>
+            <p>Coinex isn't just another token - it's a symbol of the evolution of cryptocurrency, paying homage to the past while embracing the future of blockchain technology.</p>
+            
+            <div class="project-info">
+                <h3>Project Details</h3>
+                <p><strong>Creator:</strong> Cliff (Solo Developer)</p>
+                <p><strong>Team:</strong> No team - community driven project</p>
+                <p><strong>Launch Date:</strong> April 25, 2023</p>
+                <p><strong>Project Completed:</strong> August 24, 2025</p>
+                <p><strong>Blockchain:</strong> Solana</p>
+            </div>
+        </div>
+        <div class="about-image">
+            <div class="coin-image-container">
+                <div class="coin-image"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <h2>Why Choose Coinex?</h2>
+        <div class="features">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Lightning Fast</h3>
+                <p>Built on Solana, Coinex transactions are incredibly fast with confirmation times under a second.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <h3>Low Fees</h3>
+                <p>Say goodbye to high gas fees. Solana's efficiency means you pay pennies for transactions.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Secure</h3>
+                <p>Leveraging Solana's proof-of-history consensus, Coinex is as secure as it is fast.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Community Driven</h3>
+                <p>Coinex is 100% community owned and operated, with no central authority.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-to-buy">
+        <h2>How to Buy Coinex</h2>
+        <p>Getting your hands on Coinex is simple. Follow these steps to join the revolution:</p>
+        
+        <div class="steps">
+            <div class="step fade-in">
+                <div class="step-number">1</div>
+                <h3>Get a Wallet</h3>
+                <p>Download a Solana-compatible wallet like Phantom or Solflare.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-number">2</div>
+                <h3>Get SOL</h3>
+                <p>Purchase SOL from any major exchange and send it to your wallet.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-number">3</div>
+                <h3>Connect to DEX</h3>
+                <p>Connect your wallet to a decentralized exchange like Raydium or Orca.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-number">4</div>
+                <h3>Swap for Coinex</h3>
+                <p>Swap your SOL for Coinex using our contract address.</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <button class="cta-button" onclick="window.open('https://phantom.com/tokens/solana/Hom5Y59JcZWFHi9wjxr9bp88EL36GCUUhrVwNYN1PGMd?referralId=98arwhjkeqn', '_blank')">Buy Coinex on Phantom</button>
+        </div>
+    </section>
+
+    <section id="roadmap" class="roadmap">
+        <h2>Roadmap</h2>
+        <p>Our journey from creation to completion:</p>
+        
+        <div class="roadmap-items">
+            <div class="roadmap-item fade-in">
+                <div class="roadmap-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="roadmap-content">
+                    <h3>April 25, 2023: Project Creation</h3>
+                    <p>Coinex was created by Cliff as a solo project. Concept development and token creation began.</p>
+                </div>
+            </div>
+            <div class="roadmap-item fade-in">
+                <div class="roadmap-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="roadmap-content">
+                    <h3>May 2023: Launch</h3>
+                    <p>Successful launch on Solana mainnet. First 10,000 holders milestone reached.</p>
+                </div>
+            </div>
+            <div class="roadmap-item fade-in">
+                <div class="roadmap-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="roadmap-content">
+                    <h3>Q3 2023: Expansion</h3>
+                    <p>Listings on major DEXs and tracking platforms. Marketing initiatives expanded.</p>
+                </div>
+            </div>
+            <div class="roadmap-item fade-in">
+                <div class="roadmap-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <div class="roadmap-content">
+                    <h3>2024: Growth</h3>
+                    <p>Community growth and increased recognition. Major partnerships established.</p>
+                </div>
+            </div>
+            <div class="roadmap-item fade-in">
+                <div class="roadmap-icon">
+                    <i class="fas fa-flag-checkered"></i>
+                </div>
+                <div class="roadmap-content">
+                    <h3>August 24, 2025: Project Completed</h3>
+                    <p>Coinex project completed all goals and reached its final form as a successful memecoin on Solana.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="logo">
+                <span class="logo-icon"><i class="fas fa-coins"></i></span>
+                <span>COINEX</span>
+            </div>
+            <p>The Bitcoin of Memecoins on Solana</p>
+            
+            <div class="social-links">
+                <a href="https://t.me/+-P4FOGvCTl83YWJh" target="_blank"><i class="fab fa-telegram"></i></a>
+                <a href="https://x.com/Coinex_sol?t=H0f3JfkeVI63vQPj2PHPBg&s=09" target="_blank"><i class="fab fa-twitter"></i></a>
+            </div>
+            
+            <p class="disclaimer">
+                Disclaimer: Coinex is a memecoin with no intrinsic value or expectation of financial return. The coin is for entertainment purposes only. Please conduct your own research and invest responsibly.
+            </p>
+            
+            <p>© 2023-2025 Coinex. All rights reserved. Created by Cliff.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Particles.js configuration
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: {
+                        value: 80,
+                        density: {
+                            enable: true,
+                            value_area: 800
+                        }
+                    },
+                    color: {
+                        value: ["#ff9900", "#00a2ff", "#9945ff"]
+                    },
+                    shape: {
+                        type: "circle",
+                        stroke: {
+                            width: 0,
+                            color: "#000000"
+                        }
+                    },
+                    opacity: {
+                        value: 0.5,
+                        random: true,
+                        anim: {
+                            enable: true,
+                            speed: 1,
+                            opacity_min: 0.1,
+                            sync: false
+                        }
+                    },
+                    size: {
+                        value: 3,
+                        random: true,
+                        anim: {
+                            enable: true,
+                            speed: 2,
+                            size_min: 0.1,
+                            sync: false
+                        }
+                    },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#ff9900",
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        out_mode: "out",
+                        bounce: false,
+                        attract: {
+                            enable: true,
+                            rotateX: 600,
+                            rotateY: 1200
+                        }
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: "grab"
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: "push"
+                        },
+                        resize: true
+                    },
+                    modes: {
+                        grab: {
+                            distance: 140,
+                            line_linked: {
+                                opacity: 1
+                            }
+                        },
+                        push: {
+                            particles_nb: 4
+                        }
+                    }
+                },
+                retina_detect: true
+            });
+            
+            // Intersection Observer for fade-in animations
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            fadeElements.forEach(el => {
+                fadeObserver.observe(el);
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
